@@ -22,6 +22,7 @@ $(document).ready(function() {
 
     function showNav() {
         $('#sidebar').css('width', navbar_size);
+        $('#sidebar').css('transform', 'none');
         $('#sidebar').children().css('margin-left', '+=' + navbar_size);
         $('#info').css('margin-left', '+=' + navbar_size);
         $('#info').css('margin-right', '-=' + navbar_size);
