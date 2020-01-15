@@ -27,6 +27,10 @@ $(document).ready(function() {
         $('#info').css('margin-right', '-=' + navbar_size);
         $('.navbar-toggler').removeClass('collapsed');
         $('#sidebar').addClass('toggled');
+        $('html, body').css({
+            overflow: 'hidden',
+            height: '100%'
+        });
     }
 
     function hideNav() {
@@ -36,5 +40,9 @@ $(document).ready(function() {
         $('#info').css('margin-right', none);
         $('.navbar-toggler').addClass('collapsed');
         $('#sidebar').removeClass('toggled');
+        $('html, body').css({
+            overflow: 'auto',
+            height: 'auto'
+        });
     }
 });
