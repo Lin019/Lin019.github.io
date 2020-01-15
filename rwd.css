@@ -1,0 +1,17 @@
+@media screen and (min-width: 900px) {
+    button {
+        display: none;
+    }
+
+    #sidebar {
+        width: 300px;
+    }
+
+    #sidebar .row {
+        margin-left: 0px;
+    }
+
+    #info {
+        margin-left: 300px;
+    }
+}
