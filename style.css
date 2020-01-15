@@ -61,6 +61,9 @@ img.banner {
     padding-top: 10px;
     transition: 0.5s;
 }
+#info .row {
+    padding: 60px;
+}
 
 .item {
     margin-bottom: 50px;
@@ -99,10 +102,6 @@ button:focus {
 .name {
     margin: auto;
     padding: 0px;
-}
-
-#info .row {
-    padding: 60px;
 }
 
 .pic {
