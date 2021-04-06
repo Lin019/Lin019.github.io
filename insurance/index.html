@@ -1,0 +1,345 @@
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="css/style.css">
+        <script src="js/script.js"></script>
+    </head>
+    <body>
+        <!-- 首頁 -->
+        <div class="home-page container-fluid">
+            <div style="width: 80%; background-color: rgba(255,255,255,0.5)">
+                <div class="row"><p class="title">專為您<br>量身<br>打造的<br>保險規劃</p></div>
+                <div class="row-fluid d-flex justify-content-center"><button><p>開始使用</p></button></div>
+            </div>
+        </div>
+
+        <!-- 選擇項目 -->
+        <div class="main-container container">
+            <div class="row-fluid d-flex justify-content-center">
+                <p class="sub-title">開始建立資料<p>
+            </div>
+            <div class="row">
+                <div class="col col-xs-6">
+                    <div class="item">
+                        <div class="row w-100"><img src="images/income.png"></div>
+                        <div class="row w-100"><p>收入</p></div>
+                    </div>
+                </div>
+
+                <div class="col col-xs-6">
+                    <div class="item">
+                        <div class="row w-100"><img src="images/pay.png"></div>
+                        <div class="row w-100"><p>支出</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-xs-6">
+                    <div class="item">
+                        <div class="row w-100"><img src="images/estate.png"></div>
+                        <div class="row w-100"><p>資產</p></div>
+                    </div>
+                </div>
+
+                <div class="col col-xs-6">
+                    <div class="item">
+                        <div class="row w-100"><img src="images/debt.png"></div>
+                        <div class="row w-100"><p>負債</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- toolbar -->
+        <div class="toolbar row-fluid d-none" style="position: fixed; width: 100vw; top: 0">
+            <div class="col-3 text" target="income"><p>收入</p></div>
+            <div class="col-3 text" target="pay"><p>支出</p></div>
+            <div class="col-3 text" target="estate"><p>資產</p></div>
+            <div class="col-3 text" target="debt"><p>負債</p></div>
+        </div>
+
+        <!-- 表格頁 -->
+        <div class="container-fluid data-page">
+            <div class="viewport income-viewport">
+                <div class="toolbar-fix"></div>
+
+                <table id="dvData">
+                    <thead>
+                        <tr>
+                            <th><p>收入</p></th>
+                            <th><p>每年</p></th>
+                            <th><p>每月</p></th>
+                            <th><p>年比重</p></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-subtitle">
+                            <td colspan="4">
+                                <p>1. 工作收入</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><p>薪資</p></td>
+                            <td><input type="text"></td>
+                            <td><input type="text"></td>
+                            <td><p>0%</p></td>
+                        </tr>
+                        <tr class="table-subtitle">
+                            <td colspan="4">
+                                <p>2. 理財收入</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><p>利息</p></td>
+                            <td><input type="text"></td>
+                            <td><input type="text"></td>
+                            <td><p>0%</p></td>
+                        </tr>
+                        <tr class="table-subtitle">
+                            <td colspan="4">
+                                <p>3. 其他收入</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><p>其他</p></td>
+                            <td><input type="text"></td>
+                            <td><input type="text"></td>
+                            <td><p>0%</p></td>
+                        </tr>
+                        <tr class="sum">
+                            <td><p>※總收入(1)</p></td>
+                            <td><p class="money">0</p></td>
+                            <td><p class="money">0</p></td>
+                            <td><p>100%</p></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button id="btnExport">匯出</button>
+            </div>
+            <div class="viewport pay-viewport">
+                <div class="toolbar-fix"></div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th><p>支出</p></th>
+                            <th><p>每年</p></th>
+                            <th><p>每月</p></th>
+                            <th><p>年比重</p></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-subtitle">
+                            <td colspan="4">
+                                <p>1. 食</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><p>食</p></td>
+                            <td><input type="text"></td>
+                            <td><input type="text"></td>
+                            <td><p>0%</p></td>
+                        </tr>
+                        <tr class="table-subtitle">
+                            <td colspan="4">
+                                <p>2. 衣</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><p>衣</p></td>
+                            <td><input type="text"></td>
+                            <td><input type="text"></td>
+                            <td><p>0%</p></td>
+                        </tr>
+                        <tr class="table-subtitle">
+                            <td colspan="4">
+                                <p>3. 住</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><p>住</p></td>
+                            <td><input type="text"></td>
+                            <td><input type="text"></td>
+                            <td><p>0%</p></td>
+                        </tr>
+                        <tr class="table-subtitle">
+                            <td colspan="4">
+                                <p>4. 行</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><p>交通</p></td>
+                            <td><input type="text"></td>
+                            <td><input type="text"></td>
+                            <td><p>0%</p></td>
+                        </tr>
+                        <tr class="table-subtitle">
+                            <td colspan="4">
+                                <p>5. 育</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><p>進修費用</p></td>
+                            <td><input type="text"></td>
+                            <td><input type="text"></td>
+                            <td><p>0%</p></td>
+                        </tr>
+                        <tr class="table-subtitle">
+                            <td colspan="4">
+                                <p>6. 樂</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><p>休閒娛樂</p></td>
+                            <td><input type="text"></td>
+                            <td><input type="text"></td>
+                            <td><p>0%</p></td>
+                        </tr>
+                        <tr class="sum">
+                            <td><p>※總支出(2)</p></td>
+                            <td><p class="money">0</p></td>
+                            <td><p class="money">0</p></td>
+                            <td><p>100%</p></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="viewport estate-viewport">
+                <div class="toolbar-fix"></div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th><p>資產</p></th>
+                            <th><p>每年</p></th>
+                            <th><p>每月</p></th>
+                            <th><p>年比重</p></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-subtitle">
+                            <td colspan="4">
+                                <p>1. 流動性資產</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><p>存款等等</p></td>
+                            <td><input type="text"></td>
+                            <td><input type="text"></td>
+                            <td><p>0%</p></td>
+                        </tr>
+                        <tr class="table-subtitle">
+                            <td colspan="4">
+                                <p>2. 流動性投資</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><p>股票等等</p></td>
+                            <td><input type="text"></td>
+                            <td><input type="text"></td>
+                            <td><p>0%</p></td>
+                        </tr>
+                        <tr class="table-subtitle">
+                            <td colspan="4">
+                                <p>3. 非流動性投資</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><p></p></td>
+                            <td><input type="text"></td>
+                            <td><input type="text"></td>
+                            <td><p>0%</p></td>
+                        </tr>
+                        <tr class="table-subtitle">
+                            <td colspan="4">
+                                <p>4. 不動產</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><p>房</p></td>
+                            <td><input type="text"></td>
+                            <td><input type="text"></td>
+                            <td><p>0%</p></td>
+                        </tr>
+                        <tr class="table-subtitle">
+                            <td colspan="4">
+                                <p>5. 生息資產</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><p></p></td>
+                            <td><input type="text"></td>
+                            <td><input type="text"></td>
+                            <td><p>0%</p></td>
+                        </tr>
+                        <tr class="table-subtitle">
+                            <td colspan="4">
+                                <p>6. 其他資產</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><p>其他</p></td>
+                            <td><input type="text"></td>
+                            <td><input type="text"></td>
+                            <td><p>0%</p></td>
+                        </tr>
+                        <tr class="sum">
+                            <td><p>※資產總計(1)</p></td>
+                            <td><p class="money">0</p></td>
+                            <td><p class="money">0</p></td>
+                            <td><p>100%</p></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="viewport debt-viewport">
+                <div class="toolbar-fix"></div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th><p>負債</p></th>
+                            <th><p>每年</p></th>
+                            <th><p>每月</p></th>
+                            <th><p>年比重</p></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-subtitle">
+                            <td colspan="4">
+                                <p>1. 短期負債</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><p></p></td>
+                            <td><input type="text"></td>
+                            <td><input type="text"></td>
+                            <td><p>0%</p></td>
+                        </tr>
+                        <tr class="table-subtitle">
+                            <td colspan="4">
+                                <p>2. 長期負債</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><p></p></td>
+                            <td><input type="text"></td>
+                            <td><input type="text"></td>
+                            <td><p>0%</p></td>
+                        </tr>
+                        <tr class="sum">
+                            <td><p>※負債總計(2)</p></td>
+                            <td><p class="money">0</p></td>
+                            <td><p class="money">0</p></td>
+                            <td><p>100%</p></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="row-fluid return-row d-none justify-content-center">
+                <img class="return-btn" src="images/return.png">
+            </div>
+        </div>
+    </body>
+</html>
