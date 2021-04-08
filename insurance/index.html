@@ -692,8 +692,8 @@
                     monthTotal += (month.toString().trim() === "") ? 0 : parseFloat(month);
                 }
             });
-            field.closest("tr").siblings(".sum").find("td:nth-child(2) p").text(yearTotal.toLocaleString("en"));
-            field.closest("tr").siblings(".sum").find("td:nth-child(3) p").text(monthTotal.toLocaleString("en"));
+            field.closest("tr").siblings(".sum").find("td:nth-child(2) p").text(yearTotal);
+            field.closest("tr").siblings(".sum").find("td:nth-child(3) p").text(monthTotal);
 
 
             field.closest("tbody").find("tr:not(.table-subtitle):not(.sum)").each(function() {
