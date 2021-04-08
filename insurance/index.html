@@ -58,12 +58,11 @@
                 <p class="sub-title">匯入已儲存的資料<p>
             </div>
 
-            <div class="row-fluid d-flex justify-content-center" style="margin-top: 20px;">
+            <div class="row-fluid d-flex justify-content-center" style="margin-top: 20px; padding: 0 25px;">
                 <input type="file" id="fileUpload" />
                 <input type="button" id="upload" value="匯入" />
                 <div id="dvCSV"></div>
             </div>
-            <div class="footer-fix"></div>
             <div class="footer-fix"></div>
         </div>
 
@@ -510,118 +509,117 @@
             </div>
         </div>
 
-        <div class="container-fluid insurance-page" style="height: 100vh">
+        <div class="container-fluid insurance-page" >
+            <div style="height: 100vh; overflow: scroll;">
+                <div class="row-fluid">
+                    <p class="sub-title">保障試算</p>
+                </div>
 
-            <div class="row-fluid">
-                <p class="sub-title">保障試算</p>
+                <div class="row-fluid" style="margin-top: 30px;">
+                    <div class="row title-row">
+                        <div class="col-3">
+                            <p>年收入</p>
+                        </div>
+                        <div class="col-1">
+                        </div>
+                        <div class="col-3">
+                        </div>
+                        <div class="col-1">
+                            <p></p>
+                        </div>
+                        <div class="col-4">
+                            <p>保障需求</p>
+                        </div>
+                    </div>
+                    <div class="row content-row">
+                        <div class="col-3">
+                            <p class="total-income"></p>
+                        </div>
+                        <div class="col-1">
+                            <p>×</p>
+                        </div>
+                        <div class="col-3">
+                            <input id="income-insurance-year" type='number' style="width: 80%"><p style="padding-left: 10px;">年</p>
+                        </div>
+                        <div class="col-1">
+                            <p>=</p>
+                        </div>
+                        <div class="col-4">
+                            <p id="income-insurance"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row-fluid" style="margin-top: 100px;">
+                    <div class="row title-row">
+                        <div class="col-3">
+                        </div>
+                        <div class="col-1">
+                        </div>
+                        <div class="col-3">
+                            <p>負債</p>
+                        </div>
+                        <div class="col-1">
+                            <p></p>
+                        </div>
+                        <div class="col-4">
+                            <p>保障需求</p>
+                        </div>
+                    </div>
+                    <div class="row content-row">
+                        <div class="col-3">
+                        </div>
+                        <div class="col-1">
+                        </div>
+                        <div class="col-3">
+                            <p class="total-debt"></p>
+                        </div>
+                        <div class="col-1">
+                            <p>=</p>
+                        </div>
+                        <div class="col-4">
+                            <p id="debt-insurance"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row-fluid" style="margin-top: 100px;">
+                    <div class="row title-row">
+                        <div class="col-3">
+                            <p>每月生活費</p>
+                        </div>
+                        <div class="col-1">
+                        </div>
+                        <div class="col-3">
+                            <p>預計退休年齡</p>
+                        </div>
+                        <div class="col-1">
+                            <p></p>
+                        </div>
+                        <div class="col-4">
+                            <p>退休金</p>
+                        </div>
+                    </div>
+                    <div class="row content-row">
+                        <div class="col-3">
+                            <input id="month-expense" type='number' style="width: 100%"><p style="padding-left: 10px;"></p>
+                        </div>
+                        <div class="col-1">
+                        </div>
+                        <div class="col-3">
+                            <input id="retire" type='number' style="width: 100%"><p style="padding-left: 10px;"></p>
+                        </div>
+                        <div class="col-1">
+                            <p>=</p>
+                        </div>
+                        <div class="col-4">
+                            <p id="pension"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-fix"></div>
             </div>
-
-            <div class="row-fluid" style="margin-top: 30px;">
-                <div class="row title-row">
-                    <div class="col-3">
-                        <p>年收入</p>
-                    </div>
-                    <div class="col-1">
-                    </div>
-                    <div class="col-3">
-                    </div>
-                    <div class="col-1">
-                        <p></p>
-                    </div>
-                    <div class="col-4">
-                        <p>保障需求</p>
-                    </div>
-                </div>
-                <div class="row content-row">
-                    <div class="col-3">
-                        <p class="total-income"></p>
-                    </div>
-                    <div class="col-1">
-                        <p>×</p>
-                    </div>
-                    <div class="col-3">
-                        <input id="income-insurance-year" type='number' style="width: 80%"><p style="padding-left: 10px;">年</p>
-                    </div>
-                    <div class="col-1">
-                        <p>=</p>
-                    </div>
-                    <div class="col-4">
-                        <p id="income-insurance"></p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row-fluid" style="margin-top: 100px;">
-                <div class="row title-row">
-                    <div class="col-3">
-                    </div>
-                    <div class="col-1">
-                    </div>
-                    <div class="col-3">
-                        <p>負債</p>
-                    </div>
-                    <div class="col-1">
-                        <p></p>
-                    </div>
-                    <div class="col-4">
-                        <p>保障需求</p>
-                    </div>
-                </div>
-                <div class="row content-row">
-                    <div class="col-3">
-                    </div>
-                    <div class="col-1">
-                    </div>
-                    <div class="col-3">
-                        <p class="total-debt"></p>
-                    </div>
-                    <div class="col-1">
-                        <p>=</p>
-                    </div>
-                    <div class="col-4">
-                        <p id="debt-insurance"></p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row-fluid" style="margin-top: 100px;">
-                <div class="row title-row">
-                    <div class="col-3">
-                        <p>每月生活費</p>
-                    </div>
-                    <div class="col-1">
-                    </div>
-                    <div class="col-3">
-                        <p>預計退休年齡</p>
-                    </div>
-                    <div class="col-1">
-                        <p></p>
-                    </div>
-                    <div class="col-4">
-                        <p>退休金</p>
-                    </div>
-                </div>
-                <div class="row content-row">
-                    <div class="col-3">
-                        <input id="month-expense" type='number' style="width: 100%"><p style="padding-left: 10px;"></p>
-                    </div>
-                    <div class="col-1">
-                    </div>
-                    <div class="col-3">
-                        <input id="retire" type='number' style="width: 100%"><p style="padding-left: 10px;"></p>
-                    </div>
-                    <div class="col-1">
-                        <p>=</p>
-                    </div>
-                    <div class="col-4">
-                        <p id="pension"></p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="footer-fix"></div>
-            <div class="footer-fix"></div>
-
             <div class="row-fluid return-row d-none justify-content-center">
                 <div class="col-6 d-flex justify-content-center return-btn">返回</div>
                 <div class="col-6 d-flex justify-content-center" style="background-color: #888"></div>
