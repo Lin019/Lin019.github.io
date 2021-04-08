@@ -580,7 +580,7 @@
 
                 <div class="row-fluid" style="margin-top: 100px;">
                     <div class="row title-row">
-                        <div class="col-3">
+                        <div class="col-4">
                             <p>每月生活費</p>
                         </div>
                         <div class="col-1">
@@ -591,13 +591,13 @@
                         <div class="col-1">
                             <p></p>
                         </div>
-                        <div class="col-4">
+                        <div class="col-3">
                             <p>退休金</p>
                         </div>
                     </div>
                     <div class="row content-row">
-                        <div class="col-3">
-                            <input id="month-expense" type='number' style="width: 100%"><p style="padding-left: 10px;"></p>
+                        <div class="col-4">
+                            <input id="month-expense" type='number' style="width: 100%"><p style="padding-left: 10px;">萬</p>
                         </div>
                         <div class="col-1">
                         </div>
@@ -607,7 +607,7 @@
                         <div class="col-1">
                             <p>=</p>
                         </div>
-                        <div class="col-4">
+                        <div class="col-3">
                             <p id="pension"></p>
                         </div>
                     </div>
@@ -810,8 +810,8 @@
             $("#month-expense, #retire").on("blur", function() {
                 var m = ToNumber($("#month-expense").val()) || 0;
                 var r = ToNumber($("#retire").val()) || 0;
-                var pension = m * 12 * (85 - r) / 10000;
-                $("#pension").text(pension.toLocaleString("en") + "萬");
+                var pension = m * 10000 * 12 * (85 - r) / 10000;
+                if(r != 0) $("#pension").text(pension.toLocaleString("en") + "萬");
             });
 
             $("#income-insurance-year").on("blur", function() {
@@ -965,7 +965,7 @@
             -webkit-appearance: none;
         }
         .insurance-page .title-row p {
-            font-size: 26px;
+            font-size: 20px;
             font-weight: bold;
         }
 
