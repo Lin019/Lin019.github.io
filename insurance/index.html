@@ -1,11 +1,10 @@
 <html lang="en">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="mobile-web-app-capable" content="yes">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="css/style.css">
-        <script src="js/script.js"></script>
     </head>
     <body>
         <!-- 首頁 -->
@@ -18,38 +17,51 @@
 
         <!-- 選擇項目 -->
         <div class="main-container container">
-            <div class="row-fluid d-flex justify-content-center">
+            <div class="row-fluid d-flex justify-content-end">
+                <p style="line-height: 1.9">客戶姓名：</p>
+                <input id="customer-name" type="text" size="10">
+            </div>
+            <div class="row-fluid d-flex justify-content-center" style="margin-top: 50px;">
                 <p class="sub-title">開始建立資料<p>
             </div>
             <div class="row">
-                <div class="col col-xs-6">
+                <div class="col col-xs-6 d-flex justify-content-center">
                     <div class="item">
-                        <div class="row w-100"><img src="images/income.png"></div>
                         <div class="row w-100"><p>收入</p></div>
                     </div>
                 </div>
 
-                <div class="col col-xs-6">
+                <div class="col col-xs-6 d-flex justify-content-center">
                     <div class="item">
-                        <div class="row w-100"><img src="images/pay.png"></div>
                         <div class="row w-100"><p>支出</p></div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col col-xs-6">
+                <div class="col col-xs-6 d-flex justify-content-center">
                     <div class="item">
-                        <div class="row w-100"><img src="images/estate.png"></div>
                         <div class="row w-100"><p>資產</p></div>
                     </div>
                 </div>
 
-                <div class="col col-xs-6">
+                <div class="col col-xs-6 d-flex justify-content-center">
                     <div class="item">
-                        <div class="row w-100"><img src="images/debt.png"></div>
                         <div class="row w-100"><p>負債</p></div>
                     </div>
                 </div>
+            </div>
+
+            <div class="row-fluid d-flex justify-content-center">
+                <p style="font-size: 26px; font-weight: bold;">或是...<p>
+            </div>
+            <div class="row-fluid d-flex justify-content-center">
+                <p class="sub-title">匯入已儲存的資料<p>
+            </div>
+
+            <div class="row-fluid d-flex justify-content-center" style="margin-top: 20px;">
+                <input type="file" id="fileUpload" />
+                <input type="button" id="upload" value="匯入" />
+                <div id="dvCSV"></div>
             </div>
         </div>
 
@@ -66,7 +78,8 @@
             <div class="viewport income-viewport">
                 <div class="toolbar-fix"></div>
 
-                <table id="dvData">
+                <div class="table-row">
+                    <table id="dvData">
                     <thead>
                         <tr>
                             <th><p>收入</p></th>
@@ -83,8 +96,8 @@
                         </tr>
                         <tr>
                             <td><p>薪資</p></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
+                            <td><input type="number" class="work-income"></td>
+                            <td><input type="number"></td>
                             <td><p>0%</p></td>
                         </tr>
                         <tr class="table-subtitle">
@@ -94,8 +107,8 @@
                         </tr>
                         <tr>
                             <td><p>利息</p></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
+                            <td><input type="number" class="investment-income"></td>
+                            <td><input type="number"></td>
                             <td><p>0%</p></td>
                         </tr>
                         <tr class="table-subtitle">
@@ -105,241 +118,1092 @@
                         </tr>
                         <tr>
                             <td><p>其他</p></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
+                            <td><input type="number" class="other-income"></td>
+                            <td><input type="number"></td>
                             <td><p>0%</p></td>
                         </tr>
                         <tr class="sum">
                             <td><p>※總收入(1)</p></td>
-                            <td><p class="money">0</p></td>
+                            <td><p class="money total-income">0</p></td>
                             <td><p class="money">0</p></td>
                             <td><p>100%</p></td>
                         </tr>
                     </tbody>
                 </table>
-                <button id="btnExport">匯出</button>
+                </div>
+
+                <div class="footer-fix"></div>
             </div>
             <div class="viewport pay-viewport">
                 <div class="toolbar-fix"></div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th><p>支出</p></th>
-                            <th><p>每年</p></th>
-                            <th><p>每月</p></th>
-                            <th><p>年比重</p></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="table-subtitle">
-                            <td colspan="4">
-                                <p>1. 食</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><p>食</p></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><p>0%</p></td>
-                        </tr>
-                        <tr class="table-subtitle">
-                            <td colspan="4">
-                                <p>2. 衣</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><p>衣</p></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><p>0%</p></td>
-                        </tr>
-                        <tr class="table-subtitle">
-                            <td colspan="4">
-                                <p>3. 住</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><p>住</p></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><p>0%</p></td>
-                        </tr>
-                        <tr class="table-subtitle">
-                            <td colspan="4">
-                                <p>4. 行</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><p>交通</p></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><p>0%</p></td>
-                        </tr>
-                        <tr class="table-subtitle">
-                            <td colspan="4">
-                                <p>5. 育</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><p>進修費用</p></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><p>0%</p></td>
-                        </tr>
-                        <tr class="table-subtitle">
-                            <td colspan="4">
-                                <p>6. 樂</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><p>休閒娛樂</p></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><p>0%</p></td>
-                        </tr>
-                        <tr class="sum">
-                            <td><p>※總支出(2)</p></td>
-                            <td><p class="money">0</p></td>
-                            <td><p class="money">0</p></td>
-                            <td><p>100%</p></td>
-                        </tr>
-                    </tbody>
-                </table>
+
+                <div class="table-row">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th><p>支出</p></th>
+                                <th><p>每年</p></th>
+                                <th><p>每月</p></th>
+                                <th><p>年比重</p></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="table-subtitle">
+                                <td colspan="4">
+                                    <p>1. 食</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><p>食</p></td>
+                                <td><input type="number" class="life-pay"></td>
+                                <td><input type="number"></td>
+                                <td><p>0%</p></td>
+                            </tr>
+                            <tr class="table-subtitle">
+                                <td colspan="4">
+                                    <p>2. 衣</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><p>衣</p></td>
+                                <td><input type="number" class="life-pay"></td>
+                                <td><input type="number"></td>
+                                <td><p>0%</p></td>
+                            </tr>
+                            <tr class="table-subtitle">
+                                <td colspan="4">
+                                    <p>3. 住</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><p>住</p></td>
+                                <td><input type="number" class="life-pay"></td>
+                                <td><input type="number"></td>
+                                <td><p>0%</p></td>
+                            </tr>
+                            <tr class="table-subtitle">
+                                <td colspan="4">
+                                    <p>4. 行</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><p>交通</p></td>
+                                <td><input type="number" class="life-pay"></td>
+                                <td><input type="number"></td>
+                                <td><p>0%</p></td>
+                            </tr>
+                            <tr class="table-subtitle">
+                                <td colspan="4">
+                                    <p>5. 育</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><p>進修費用</p></td>
+                                <td><input type="number" class="life-pay"></td>
+                                <td><input type="number"></td>
+                                <td><p>0%</p></td>
+                            </tr>
+                            <tr class="table-subtitle">
+                                <td colspan="4">
+                                    <p>6. 樂</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><p>休閒娛樂</p></td>
+                                <td><input type="number" class="life-pay"></td>
+                                <td><input type="number"></td>
+                                <td><p>0%</p></td>
+                            </tr>
+                            <tr class="table-subtitle">
+                                <td colspan="4">
+                                    <p>7. 保險</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><p>保險費用</p></td>
+                                <td><input type="number" class="insurance-pay"></td>
+                                <td><input type="number"></td>
+                                <td><p>0%</p></td>
+                            </tr>
+                            <tr class="table-subtitle">
+                                <td colspan="4">
+                                    <p>8. 捐贈/孝親</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><p></p></td>
+                                <td><input type="number" class="other-pay"></td>
+                                <td><input type="number"></td>
+                                <td><p>0%</p></td>
+                            </tr>
+                            <tr class="table-subtitle">
+                                <td colspan="4">
+                                    <p>9. 其他</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><p>其他</p></td>
+                                <td><input type="number" class="other-pay"></td>
+                                <td><input type="number"></td>
+                                <td><p>0%</p></td>
+                            </tr>
+                            <tr class="sum">
+                                <td><p>※總支出(2)</p></td>
+                                <td><p class="money total-pay">0</p></td>
+                                <td><p class="money">0</p></td>
+                                <td><p>100%</p></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="footer-fix"></div>
+                </div>
+
             </div>
             <div class="viewport estate-viewport">
                 <div class="toolbar-fix"></div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th><p>資產</p></th>
-                            <th><p>每年</p></th>
-                            <th><p>每月</p></th>
-                            <th><p>年比重</p></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="table-subtitle">
-                            <td colspan="4">
-                                <p>1. 流動性資產</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><p>存款等等</p></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><p>0%</p></td>
-                        </tr>
-                        <tr class="table-subtitle">
-                            <td colspan="4">
-                                <p>2. 流動性投資</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><p>股票等等</p></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><p>0%</p></td>
-                        </tr>
-                        <tr class="table-subtitle">
-                            <td colspan="4">
-                                <p>3. 非流動性投資</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><p></p></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><p>0%</p></td>
-                        </tr>
-                        <tr class="table-subtitle">
-                            <td colspan="4">
-                                <p>4. 不動產</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><p>房</p></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><p>0%</p></td>
-                        </tr>
-                        <tr class="table-subtitle">
-                            <td colspan="4">
-                                <p>5. 生息資產</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><p></p></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><p>0%</p></td>
-                        </tr>
-                        <tr class="table-subtitle">
-                            <td colspan="4">
-                                <p>6. 其他資產</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><p>其他</p></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><p>0%</p></td>
-                        </tr>
-                        <tr class="sum">
-                            <td><p>※資產總計(1)</p></td>
-                            <td><p class="money">0</p></td>
-                            <td><p class="money">0</p></td>
-                            <td><p>100%</p></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-row">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th><p>資產</p></th>
+                                <th><p>金額</p></th>
+                                <th><p>比重</p></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="table-subtitle">
+                                <td colspan="3">
+                                    <p>1. 流動性資產</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><p>存款等等</p></td>
+                                <td><input type="number" class="save-estate"></td>
+                                <td><p>0%</p></td>
+                            </tr>
+                            <tr class="table-subtitle">
+                                <td colspan="3">
+                                    <p>2. 流動性投資</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><p>股票等等</p></td>
+                                <td><input type="number" class="stock-estate"></td>
+                                <td><p>0%</p></td>
+                            </tr>
+                            <tr class="table-subtitle">
+                                <td colspan="3">
+                                    <p>3. 非流動性投資</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><p></p></td>
+                                <td><input type="number" class="other-estate"></td>
+                                <td><p>0%</p></td>
+                            </tr>
+                            <tr class="table-subtitle">
+                                <td colspan="3">
+                                    <p>4. 不動產</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><p>房</p></td>
+                                <td><input type="number" class="real-estate"></td>
+                                <td><p>0%</p></td>
+                            </tr>
+                            <tr class="table-subtitle">
+                                <td colspan="3">
+                                    <p>5. 生息資產</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><p></p></td>
+                                <td><input type="number" class="other-estate"></td>
+                                <td><p>0%</p></td>
+                            </tr>
+                            <tr class="table-subtitle">
+                                <td colspan="3">
+                                    <p>6. 其他資產</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><p>其他</p></td>
+                                <td><input type="number" class="other-estate"></td>
+                                <td><p>0%</p></td>
+                            </tr>
+                            <tr class="sum">
+                                <td><p>※資產總計(1)</p></td>
+                                <td><p class="money total-estate">0</p></td>
+                                <td><p>100%</p></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="footer-fix"></div>
             </div>
             <div class="viewport debt-viewport">
                 <div class="toolbar-fix"></div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th><p>負債</p></th>
-                            <th><p>每年</p></th>
-                            <th><p>每月</p></th>
-                            <th><p>年比重</p></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="table-subtitle">
-                            <td colspan="4">
-                                <p>1. 短期負債</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><p></p></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><p>0%</p></td>
-                        </tr>
-                        <tr class="table-subtitle">
-                            <td colspan="4">
-                                <p>2. 長期負債</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><p></p></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><p>0%</p></td>
-                        </tr>
-                        <tr class="sum">
-                            <td><p>※負債總計(2)</p></td>
-                            <td><p class="money">0</p></td>
-                            <td><p class="money">0</p></td>
-                            <td><p>100%</p></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-row">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th><p>負債</p></th>
+                                <th><p>金額</p></th>
+                                <th><p>比重</p></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="table-subtitle">
+                                <td colspan="3">
+                                    <p>1. 短期負債</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><p></p></td>
+                                <td><input type="number" class="short-debt"></td>
+                                <td><p>0%</p></td>
+                            </tr>
+                            <tr class="table-subtitle">
+                                <td colspan="3">
+                                    <p>2. 長期負債</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><p></p></td>
+                                <td><input type="number" class="long-debt"></td>
+                                <td><p>0%</p></td>
+                            </tr>
+                            <tr class="sum">
+                                <td><p>※負債總計(2)</p></td>
+                                <td><p class="money total-debt">0</p></td>
+                                <td><p>100%</p></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="footer-fix"></div>
             </div>
 
             <div class="row-fluid return-row d-none justify-content-center">
-                <img class="return-btn" src="images/return.png">
+                <div class="col-4 d-flex justify-content-center return-btn">返回</div>
+                <div class="col-4 d-flex justify-content-center confirm-btn">查看收支表</div>
+                <div class="col-4 d-flex justify-content-center export-btn" style="background-color: #4087C4; color: white;">匯出</div>
             </div>
         </div>
+
+
+        <div class="container-fluid result-page" style="background-color: #fff;">
+            <div style="overflow: scroll; height: 100vh">
+                <div class="row-fluid d-flex justify-content-center"><p style="font-size: 24px; font-weight: bold;">年度收支表</p></div>
+                <div class="table-row">
+                    <table id="income-expen-table">
+                        <thead>
+                            <tr>
+                                <th><p>支出項目</p></th>
+                                <th><p>年度總金額</p></th>
+                                <th><p>百分比</p></th>
+                                <th><p>收入項目</p></th>
+                                <th><p>年度總金額</p></th>
+                                <th><p>百分比</p></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background-color: #DFD8E8;">
+                                <td><p>工作收入</p></td>
+                                <td><p id="work-income" class="number"></p></td>
+                                <td><p class="percentage">0%</p></td>
+                                <td><p>生活費</p></td>
+                                <td><p id="life-pay" class="number"></p></td>
+                                <td><p class="percentage">0%</p></td>
+                            </tr>
+                            <tr>
+                                <td><p>理財收入</p></td>
+                                <td><p id="investment-income" class="number"></p></td>
+                                <td><p class="percentage">0%</p></td>
+                                <td><p>保險費</p></td>
+                                <td><p id="insurance-pay" class="number"></p></td>
+                                <td><p class="percentage">0%</p></td>
+                            </tr>
+                            <tr style="background-color: #DFD8E8;">
+                                <td><p>其他收入</p></td>
+                                <td><p id="other-income" class="number"></p></td>
+                                <td><p class="percentage">0%</p></td>
+                                <td><p>其他支出</p></td>
+                                <td><p id="other-pay" class="number"></p></td>
+                                <td><p class="percentage">0%</p></td>
+                            </tr>
+                            <tr>
+                                <td><p>總共</p></td>
+                                <td colspan="2"><p id="total-income" class="number final"></p></td>
+                                <td><p>總共</p></td>
+                                <td colspan="2"><p id="total-pay" class="number"></p></td>
+                            </tr>
+                            <tr style="background-color: #DFD8E8;">
+                                <td><p>收支結餘</p></td>
+                                <td colspan="5"><p id="income-pay-total" class="number income-pay-total"></p></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row-fluid d-flex justify-content-center" style="margin-top: 20px;"><p style="font-size: 24px; font-weight: bold;">資產負債表</p></div>
+                <div class="table-row">
+                    <table id="balance-table">
+                        <thead>
+                            <tr style="background-color: #C0504E;">
+                                <th colspan="2"><p>資產</p></th>
+                                <th colspan="2"><p style="text-align: left;">負債</p></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background-color: #EFD3D2">
+                                <td><p>項目</p></td>
+                                <td><p>金額</p></td>
+                                <td><p>項目</p></td>
+                                <td><p>金額</p></td>
+                            </tr>
+                            <tr>
+                                <td><p>存款</p></td>
+                                <td><p id="save-estate" class="number"></p></td>
+                                <td><p>短期負債</p></td>
+                                <td><p id="short-debt" class="number"></p></td>
+                            </tr>
+                            <tr style="background-color: #EFD3D2">
+                                <td><p>股票</p></td>
+                                <td><p id="stock-estate" class="number"></p></td>
+                                <td><p>長期負債</p></td>
+                                <td><p id="long-debt" class="number"></p></td>
+                            </tr>
+                            <tr>
+                                <td><p>不動產</p></td>
+                                <td><p id="real-estate" class="number"></p></td>
+                                <td><p>總計:</p></td>
+                                <td><p id="total-debt" class="number"></p></td>
+                            </tr>
+                            <tr style="background-color: #EFD3D2">
+                                <td><p>其他資產</p></td>
+                                <td><p id="other-estate" class="number"></p></td>
+                                <td><p></p></td>
+                                <td><p></p></td>
+                            </tr>
+                            <tr>
+                                <td><p>總計:</p></td>
+                                <td><p id="total-estate" class="number"></p></td>
+                                <td><p></p></td>
+                                <td><p></p></td>
+                            </tr>
+                            <tr style="background-color: #EFD3D2">
+                                <td colspan="2"><p>資產淨值</p></td>
+                                <td colspan="2"><p id="estate-debt-total" class="number estate-debt-total"></p></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="footer-fix"></div>
+                <div class="footer-fix"></div>
+            </div>
+            <div class="row-fluid return-row d-none justify-content-center">
+                <div class="col-6 d-flex justify-content-center return-btn">返回</div>
+                <div class="col-6 d-flex justify-content-center confirm-btn">保障試算</div>
+            </div>
+        </div>
+
+        <div class="container-fluid insurance-page" style="height: 100vh">
+
+            <div class="row-fluid">
+                <p class="sub-title">保障試算</p>
+            </div>
+
+            <div class="row-fluid" style="margin-top: 30px;">
+                <div class="row title-row">
+                    <div class="col-3">
+                        <p>年收入</p>
+                    </div>
+                    <div class="col-1">
+                    </div>
+                    <div class="col-3">
+                    </div>
+                    <div class="col-1">
+                        <p></p>
+                    </div>
+                    <div class="col-4">
+                        <p>保障需求</p>
+                    </div>
+                </div>
+                <div class="row content-row">
+                    <div class="col-3">
+                        <p class="total-income"></p>
+                    </div>
+                    <div class="col-1">
+                        <p>×</p>
+                    </div>
+                    <div class="col-3">
+                        <input id="income-insurance-year" type='number' style="width: 80%"><p style="padding-left: 10px;">年</p>
+                    </div>
+                    <div class="col-1">
+                        <p>=</p>
+                    </div>
+                    <div class="col-4">
+                        <p id="income-insurance"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-fluid" style="margin-top: 100px;">
+                <div class="row title-row">
+                    <div class="col-3">
+                    </div>
+                    <div class="col-1">
+                    </div>
+                    <div class="col-3">
+                        <p>負債</p>
+                    </div>
+                    <div class="col-1">
+                        <p></p>
+                    </div>
+                    <div class="col-4">
+                        <p>保障需求</p>
+                    </div>
+                </div>
+                <div class="row content-row">
+                    <div class="col-3">
+                    </div>
+                    <div class="col-1">
+                    </div>
+                    <div class="col-3">
+                        <p class="total-debt"></p>
+                    </div>
+                    <div class="col-1">
+                        <p>=</p>
+                    </div>
+                    <div class="col-4">
+                        <p id="debt-insurance"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-fluid" style="margin-top: 100px;">
+                <div class="row title-row">
+                    <div class="col-3">
+                        <p>每月生活費</p>
+                    </div>
+                    <div class="col-1">
+                    </div>
+                    <div class="col-3">
+                        <p>預計退休年齡</p>
+                    </div>
+                    <div class="col-1">
+                        <p></p>
+                    </div>
+                    <div class="col-4">
+                        <p>退休金</p>
+                    </div>
+                </div>
+                <div class="row content-row">
+                    <div class="col-3">
+                        <input id="month-expense" type='number' style="width: 100%"><p style="padding-left: 10px;"></p>
+                    </div>
+                    <div class="col-1">
+                    </div>
+                    <div class="col-3">
+                        <input id="retire" type='number' style="width: 100%"><p style="padding-left: 10px;"></p>
+                    </div>
+                    <div class="col-1">
+                        <p>=</p>
+                    </div>
+                    <div class="col-4">
+                        <p id="pension"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-fluid return-row d-none justify-content-center">
+                <div class="col-6 d-flex justify-content-center return-btn">返回</div>
+                <div class="col-6 d-flex justify-content-center" style="background-color: #888"></div>
+            </div>
+
+
+        </div>
+
+
+        <script>
+        function toggleDataPage(isShow, index) {
+            if (isShow) {
+                $(".data-page").css("top", "0");
+                $(".toolbar").removeClass("d-none");
+                $(".data-page").css("left", (-100 * index) + "vw");
+                setTimeout(function() {
+                    $(".data-page .return-row").removeClass("d-none");
+                }, 300);
+            }
+            else {
+                $(".data-page").css("top", "100vh");
+                $(".toolbar").addClass("d-none");
+                $(".data-page .return-row").addClass("d-none");
+            }
+        }
+
+        function toggleResultPage(isShow) {
+            if (isShow) {
+                toggleDataPage(false);
+                $(".result-page").css("top", "0");
+                setTimeout(function() {
+                    $(".result-page .return-row").removeClass("d-none");
+                }, 300);
+            }
+            else {
+                toggleDataPage(true);
+                $(".result-page").css("top", "100vh");
+                $(".result-page .return-row").addClass("d-none");
+            }
+        }
+
+        function toggleInsurancePage(isShow) {
+            if (isShow) {
+                $(".result-page").css("top", "100vh");
+                $(".result-page .return-row").addClass("d-none");
+                $(".insurance-page").css("top", "0");
+                setTimeout(function() {
+                    $(".insurance-page .return-row").removeClass("d-none");
+                }, 300);
+            }
+            else {
+                toggleResultPage(true);
+                $(".insurance-page").css("top", "100vh");
+                $(".insurance-page .return-row").addClass("d-none");
+            }
+        }
+
+        function calcTotalAll() {
+            $(".data-page table").each(function() {
+                calcTotal($(this).find("input").eq(0));
+            });
+        }
+
+        function calcTotal(field) {
+            var yearTotal = 0;
+            var monthTotal = 0;
+
+            field.closest("tbody").find("tr:not(.table-subtitle):not(.sum)").each(function() {
+                var year = $(this).find("td:nth-child(2) input").val();
+                yearTotal += (year.toString().trim() === "") ? 0 : parseFloat(year);
+
+                if ($(this).find("td:nth-child(3) input").length) {
+                    var month = $(this).find("td:nth-child(3) input").val();
+                    monthTotal += (month.toString().trim() === "") ? 0 : parseFloat(month);
+                }
+            });
+            field.closest("tr").siblings(".sum").find("td:nth-child(2) p").text(yearTotal.toLocaleString("en"));
+            field.closest("tr").siblings(".sum").find("td:nth-child(3) p").text(monthTotal.toLocaleString("en"));
+
+
+            field.closest("tbody").find("tr:not(.table-subtitle):not(.sum)").each(function() {
+                var year = parseInt($(this).find("td:nth-child(2) input").val()) || 0;
+                var yearPercentage = $(this).find("td:last-child p");
+                var percentage = parseFloat(((year / yearTotal) * 100).toFixed(2)) || 0;
+
+                yearPercentage.text(percentage + "%");
+            });
+        }
+
+        function addResult(className) {
+            var v = 0;
+            $(".data-page table input." + className + "").each(function() {
+                if ($(this).val().trim() !== "") v += parseInt($(this).val());
+            });
+
+            $(".data-page table p." + className + "").each(function() {
+                if ($(this).text().trim() !== "") v += parseInt($(this).text().replace(/,/g, ""));
+            });
+
+            return v.toLocaleString("en");
+        }
+
+        function ToNumber(text) {
+            return parseInt(text.replace(/,/g, ""));
+        }
+
+        function calcPercentage(value, total) {
+            return parseFloat((value / total * 100).toFixed(2));
+        }
+
+        function calcResult() {
+            $(".result-page table p.number").each(function() {
+                $(this).text(addResult($(this).attr("id")));
+            });
+
+            $("#income-expen-table p.number:not(.final)").each(function() {
+                var pField = $(this).parent().next();
+                var total = (pField.index() <= 3) ? ToNumber($("#total-income").text()) : ToNumber($("#total-pay").text());
+                var value = ToNumber($(this).text());
+                $(this).parent().next().find("p").text(calcPercentage(value, total) || 0 + "%");
+            });
+
+            $("#income-pay-total").text((ToNumber($("#total-income").text()) - ToNumber($("#total-pay").text())).toLocaleString("en"));
+            $("#estate-debt-total").text((ToNumber($("#total-estate").text()) - ToNumber($("#total-debt").text())).toLocaleString("en"));
+            $(".insurance-page .total-income").text($("#total-income").text());
+            $(".insurance-page .total-debt").text($("#total-debt").text());
+            $(".insurance-page #debt-insurance").text((ToNumber($("#total-debt").text()) / 10000).toLocaleString("en") + "萬");
+        }
+
+        function download_csv(csv, filename) {
+            var csvFile;
+            var downloadLink;
+
+            // CSV FILE
+            csvFile = new Blob(["\uFEFF"+csv], {type: "text/csv; charset=utf-18"});
+
+            // Download link
+            downloadLink = document.createElement("a");
+
+            // File name
+            downloadLink.download = filename;
+
+            // We have to create a link to the file
+            downloadLink.href = window.URL.createObjectURL(csvFile);
+
+            // Make sure that the link is not displayed
+            downloadLink.style.display = "none";
+
+            // Add the link to your DOM
+            document.body.appendChild(downloadLink);
+
+            // Lanzamos
+            downloadLink.click();
+        }
+
+        function export_table_to_csv(html, filename) {
+        	var csv = [];
+        	var rows = $(".data-page table tr");
+
+            for (var i = 0; i < rows.length; i++) {
+        		var row = [], cols = rows.eq(i).find("td, th");
+
+                for (var j = 0; j < cols.length; j++) {
+                    if (cols.eq(j).find("input").length)
+                        row.push(cols.eq(j).find("input").val());
+                    else
+                        row.push(cols.eq(j).prop("innerText"));
+                }
+
+        		csv.push(row.join(","));
+        	}
+
+            // Download CSV
+            download_csv(csv.join("\n"), filename);
+        }
+
+        function import_csv(rows) {
+
+        }
+
+        $(function() {
+            $(window).ready(function() {
+            });
+
+            $(document).on('keypress', "input[type='number'], input[type='text']", function(event) {
+                var keycode = event.keyCode || event.which;
+                if(keycode == '13') {
+                    $(this).blur();
+                }
+            });
+
+            $("#month-expense, #retire").on("blur", function() {
+                var m = ToNumber($("#month-expense").val()) || 0;
+                var r = ToNumber($("#retire").val()) || 0;
+                var pension = m * 12 * (85 - r) / 10000;
+                $("#pension").text(pension.toLocaleString("en") + "萬");
+            });
+
+            $("#income-insurance-year").on("blur", function() {
+                var income = ToNumber($(this).closest(".row").find(".total-income").text());
+                var year = ToNumber($(this).val());
+                console.log(income + "  " + year);
+                $("#income-insurance").text((income * year / 10000).toLocaleString("en") + "萬");
+            });
+
+            $("#upload").bind("click", function () {
+                var regex = /(.csv|.txt)$/;
+                if (regex.test($("#fileUpload").val().toLowerCase())) {
+                    if (typeof (FileReader) != "undefined") {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            var table = $("<table />");
+                            var rows = e.target.result.split("\n");
+                            for (var i = 0; i < rows.length; i++) {
+                                if (rows[i].match(/^\d/) || rows[i].startsWith("※") || rows[i].startsWith("收入") ||
+                                    rows[i].startsWith("支出") || rows[i].startsWith("資產") || rows[i].startsWith("負債")) continue;
+
+                                var row = $("<tr />");
+                                var cells = rows[i].split(",");
+
+                                if (cells.length > 1) {
+
+                                    for (var j = 0; j < cells.length; j++) {
+                                        var cell = $("<td />");
+                                        cell.html(cells[j]);
+                                        row.append(cell);
+                                        var field = $(".data-page table tr").eq(i).find("input");
+
+                                        if (field.length) {
+                                            if (j == 1) {
+                                                field.eq(0).val(cells[j]);
+                                            }
+                                            else if (j == 2 && field.length > 1) {
+                                                field.eq(1).val(cells[j]);
+                                            }
+                                        }
+                                    }
+                                    table.append(row);
+                                }
+                            }
+                            calcTotalAll();
+                            toggleDataPage(true, 0);
+                        }
+                        reader.readAsText($("#fileUpload")[0].files[0]);
+                    } else {
+                        alert("請選擇有效的csv檔案");
+                    }
+                } else {
+                    alert("請先選擇檔案");
+                }
+            });
+
+            $(".home-page button").on("click", function(e) {
+                e.preventDefault();
+                $(".main-container").css("top", "0");
+                // $("body").css("overflow", "auto")
+                // $("body").animate({ scrollTop: $(document).height() }, 1000);
+                // setTimeout($("body").css("overflow", "hidden"));
+            });
+
+            $(".item").on("click", function() {
+                var text = $(this).find("p").text();
+                var index = 0;
+                if (text === "支出") index = 1;
+                else if (text === "資產") index = 2;
+                else if (text === "負債") index = 3;
+
+                toggleDataPage(true, index);
+            });
+
+            $(".toolbar .text").on("click", function() {
+                var left = $(this).index() * -100;
+                var target = $(this).attr("target");
+
+                $(".data-page").css("left", left + "vw");
+            });
+
+            $(".data-page .return-btn").on("click", function() {
+                toggleDataPage(false);
+            });
+
+            $(".data-page .confirm-btn").on("click", function() {
+                calcResult();
+                toggleResultPage(true);
+            });
+
+            $(".result-page .return-btn").on("click", function() {
+                toggleResultPage(false);
+            });
+
+            $(".result-page .confirm-btn").on("click", function() {
+                toggleInsurancePage(true);
+            });
+
+            $(".insurance-page .return-btn").on("click", function() {
+                toggleInsurancePage(false);
+            });
+
+            $("table tbody input[type='number']").on("keypress, blur", function(event) {
+                var isMonth = $(this).parent().index() === 2;
+                if ($(this).val().trim() !== "") {
+                    if (isMonth) {
+                        $(this).parent().prev().find("input").val(parseInt($(this).val()) * 12);
+                    }
+                    else {
+                        $(this).parent().next().find("input").val(parseFloat((parseInt($(this).val()) / 12).toFixed(2)));
+                    }
+                }
+                var yearTotal = 0;
+                var monthTotal = 0;
+                var field = $(this);
+
+                setTimeout(function() {
+                    calcTotal(field);
+                });
+            });
+
+            $(".export-btn").click(function(e) {
+                var html = $("#dvData").prop("outerHTML");
+                if ($("#customer-name").val().toString().trim() !== "")
+	                export_table_to_csv(html, $("#customer-name").val().toString() + ".csv");
+                else {
+                    alert("請先輸入客戶姓名！");
+                    toggleDataPage(false);
+                    $("#customer-name").focus();
+                }
+            });
+        });
+
+        </script>
+
+        <style>
+        body {
+            font-family: "Microsoft JhengHei", Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        p.number, p.percentage {
+            text-align: right;
+        }
+
+        .insurance-page .title-row p {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .insurance-page .content-row p, .insurance-page .content-row input[type='number'] {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .insurance-page .row > div {
+            padding: 0 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .insurance-page input[type='number'] {
+            text-align: center;
+        }
+
+        #income-expen-table th, #income-expen-table td {
+            border: 1px solid #B5ABC3;
+        }
+
+        #balance-table th, #balance-table td {
+            border: 1px solid #E1C3C5;
+        }
+
+        .data-page .table-row {
+            overflow-y: auto;
+            height: calc(100vh - 104px);
+        }
+
+        .home-page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+
+            height: 100%;
+            width: 100vw;
+            background-image: url("https://www.accuquote.com/wp-content/uploads/2019/08/hands-in-hands-protecting-paper-family.jpg");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .home-page .bgimg {
+
+        }
+
+        .title {
+            font-size: 64px;
+            font-weight: bolder;
+        }
+
+        .sub-title {
+            font-size: 40px;
+            font-weight: bolder;
+        }
+
+        .home-page button {
+            border-radius: 500px;
+            width: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #AEEEB3;
+            border-radius: none;
+            border: none;
+            padding: 20px;
+            outline: none;
+        }
+
+        .home-page button p {
+            margin: 0
+        }
+
+        .main-container {
+            background-color: #fff;
+            position: fixed;
+            top: 100vh;
+            width: 100vw;
+            height: 100vh;
+            overflow: auto;
+            padding-top: 30px;
+            transition: .5s;
+        }
+
+        .item {
+            border-radius: 500px;
+            width: 120px;
+            height: 120px;
+            background-color: #ffd633;
+            flex-wrap: wrap;
+            margin: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .item p {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .item > .row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .item p {
+            font-weight: bold;
+        }
+
+        .item img {
+            width: 50px;
+            height: 50px;
+            margin-bottom: -20px;
+            margin-top: 10px;
+        }
+
+        .data-page {
+            position: fixed;
+            top: 100vh;
+            width: 400vw;
+            transition: .5s;
+        }
+
+        .result-page, .insurance-page {
+            background-color: #fff;
+            position: fixed;
+            top: 100vh;
+            transition: .5s;
+        }
+
+        .toolbar {
+            height: 60px;
+            left: 0;
+            z-index: 2;
+            background-color: #F6C658;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .toolbar-fix {
+            margin-top: 60px;
+        }
+
+        .footer-fix {
+            height: 56px;
+        }
+
+        .toolbar p {
+            font-size: 200%;
+            font-weight: bold;
+        }
+
+        .viewport {
+            overflow: hidden;
+            position: absolute;
+            height: 100vh;
+            width: 100vw;
+            background-color: #fff;
+        }
+
+        .income-viewport {
+            left: 0;
+        }
+
+        .pay-viewport {
+            left: 100vw;
+        }
+
+        .estate-viewport {
+            left: 200vw;
+        }
+
+        .debt-viewport {
+            left: 300vw;
+        }
+
+        th, td {
+            padding: 5px;
+        }
+
+        p.money {
+            float: right;
+        }
+
+        table input[type='number'] {
+            text-align: right;
+        }
+
+        tr.sum {
+            background-color: #FFBE2E;
+        }
+
+        table td:first-child, table th:first-child { width: 40%; padding-left: 20px;}
+        table td:nth-child(2), table th:nth-child(2) { width: 20%;}
+        table td:nth-child(3), table th:nth-child(3) { width: 20%;}
+        table td:last-child:not(:first-child), th:last-child:not(:first-child) { width: 20%; text-align: right; padding-right: 20px}
+
+        table td input[type='number'] {
+            width: 100%;
+        }
+
+        .table-subtitle {
+            background-color: #aaa;
+        }
+
+        .return-row {
+            z-index: 100;
+            position: fixed;
+            display: flex;
+            width: 100vw;
+            left: 0;
+            bottom: 0;
+        }
+
+        @media (max-height: 500px) {
+            .return-row {
+                display: none;
+            }
+        }
+
+        .return-row > div {
+            padding: 10px;
+        }
+
+        .return-btn {
+            background-color: #ddd;
+        }
+
+        .confirm-btn {
+            background-color: #59B55A;
+            color: white;
+        }
+
+        </style>
     </body>
 </html>
