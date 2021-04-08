@@ -782,7 +782,7 @@
                     if (cols.eq(j).find("input").length)
                         row.push(cols.eq(j).find("input").val());
                     else
-                        row.push(cols.eq(j).prop("innerText"));
+                        row.push(cols.eq(j).find("p").text());
                 }
 
         		csv.push(row.join(","));
