@@ -785,6 +785,8 @@
 
             // Lanzamos
             downloadLink.click();
+            link.remove();
+            setTimeout(() => URL.revokeObjectURL(downloadLink.href), 7000);
         }
 
         function export_table_to_csv(html, filename) {
