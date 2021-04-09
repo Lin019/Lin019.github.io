@@ -827,6 +827,10 @@
 
         $(function() {
             $(window).ready(function() {
+                var cookies = $.cookie();
+                for(var cookie in cookies) {
+                    $.removeCookie(cookie);
+                }
             });
 
             $(document).on('keypress', "input[type='text'], input[type='text']", function(event) {
